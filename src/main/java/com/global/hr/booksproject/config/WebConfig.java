@@ -1,0 +1,16 @@
+package com.global.hr.booksproject.config;
+
+import org.springframework.beans.factory.annotation.Configurable;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.data.domain.AuditorAware;
+import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
+
+@Configuration
+@EnableJpaAuditing(auditorAwareRef = "auditorAware")
+public class WebConfig {
+    @Bean
+    public AuditorAware<String> auditorAware(){
+        return new AuditorAwareImpl();
+    }
+}
