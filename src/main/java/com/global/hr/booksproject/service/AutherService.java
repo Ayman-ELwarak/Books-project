@@ -1,12 +1,15 @@
 package com.global.hr.booksproject.service;
 
 import com.global.hr.booksproject.entity.Auther;
+import com.global.hr.booksproject.error.DaplicateRecordException;
+import com.global.hr.booksproject.error.RecordNotFoundExecption;
 import com.global.hr.booksproject.repository.AutherRepo;
 import com.global.hr.booksproject.repository.AutherSpec;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class AutherService {
@@ -18,7 +21,12 @@ public class AutherService {
     }
 
     public Auther findById(Long id){
-        return autherRepo.findById(id).orElse(null);
+        Optional<Auther> found = autherRepo.findById(id);
+        if(found.isPresent()){
+            return found.get();
+        }else{
+            throw new RecordNotFoundExecption("Auther Not Found");
+        }
     }
 
     public Auther getOne(Long id){
@@ -26,6 +34,11 @@ public class AutherService {
     }
 
     public Auther insert(Auther auther){
+        String email = auther.getEmail();
+        Auther found = autherRepo.findByEmail(email);
+        if(found != null){
+            throw new DaplicateRecordException("Auther with email " + email + " already exists");
+        }
         return autherRepo.save(auther);
     }
 

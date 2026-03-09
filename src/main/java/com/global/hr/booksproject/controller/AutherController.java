@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/auther")
 @Validated
 public class AutherController {
-    private AutherService autherService;
+    private final AutherService autherService;
     AutherController(AutherService autherService){
         this.autherService = autherService;
     }

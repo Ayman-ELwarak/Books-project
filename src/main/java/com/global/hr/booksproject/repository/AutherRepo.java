@@ -8,4 +8,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface AutherRepo extends BaseRepo<Auther, Long>, JpaSpecificationExecutor<Auther> {
+    Auther findByEmail (String email);
 }
