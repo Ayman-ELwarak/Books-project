@@ -1,7 +1,5 @@
 package com.global.hr.booksproject.entity;
 
-import java.util.function.LongToDoubleFunction;
-
 public class PostDto {
     private Long id;
     private Long userId;

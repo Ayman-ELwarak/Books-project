@@ -35,4 +35,6 @@ public class BookDto {
 
     private String autherName;
 
+    private Auther auther;
+
 }

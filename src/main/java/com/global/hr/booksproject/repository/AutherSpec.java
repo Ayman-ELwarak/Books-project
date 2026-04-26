@@ -5,9 +5,9 @@ import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Predicate;
 import jakarta.persistence.criteria.Root;
-import org.jspecify.annotations.Nullable;
+import org.springframework.lang.Nullable;
 import org.springframework.data.jpa.domain.Specification;
-
+import org.springframework.lang.NonNull;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,7 +22,7 @@ public class AutherSpec implements Specification<Auther> {
     }
 
     @Override
-    public @Nullable Predicate toPredicate(Root<Auther> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
+    public @Nullable Predicate toPredicate(@NonNull Root<Auther> root, @NonNull CriteriaQuery<?> query, CriteriaBuilder cb) {
         List<Predicate> predicates = new ArrayList<>();
 
         predicates.add(cb.like(root.get("name"), autherName));

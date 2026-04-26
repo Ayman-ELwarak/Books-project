@@ -10,8 +10,11 @@ import com.global.hr.booksproject.entity.Book;
 public interface BookMapper {
 
     @Mapping(target = "autherName", source = "auther.name")
-    BookDto map (Book book);
+    @Mapping(target = "auther", ignore = true)
+
+    BookDto map(Book book);
 
     @Mapping(target = "auther.name", source = "autherName")
-    Book unMap (BookDto bookDto);
+    @Mapping(target = "auther", ignore = true)
+    Book unMap(BookDto bookDto);
 }
