@@ -7,11 +7,13 @@ import com.global.hr.booksproject.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 
 @Component
+@EnableAspectJAutoProxy()
 public class StartUpApp implements CommandLineRunner {
     @Autowired
     private AutherService autherService;

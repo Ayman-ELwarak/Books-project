@@ -5,17 +5,22 @@ import com.global.hr.booksproject.error.DaplicateRecordException;
 import com.global.hr.booksproject.error.RecordNotFoundExecption;
 import com.global.hr.booksproject.repository.AutherRepo;
 import com.global.hr.booksproject.repository.AutherSpec;
-import org.springframework.beans.factory.annotation.Autowired;
+
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
+@Slf4j
 public class AutherService {
-    @Autowired
-    private AutherRepo autherRepo;
+    private final AutherRepo autherRepo;
 
+//    @Cacheable(value = "auther", key = "#root.methodName")
     public List<Auther> findAll(){
         return autherRepo.findAll();
     }
@@ -29,6 +34,10 @@ public class AutherService {
         }
     }
 
+    public Auther findByEmail(String email){
+        return autherRepo.findByEmail(email);
+    }
+
     public Auther getOne(Long id){
         return autherRepo.getReferenceById(id);
     }
@@ -37,8 +46,10 @@ public class AutherService {
         String email = auther.getEmail();
         Auther found = autherRepo.findByEmail(email);
         if(found != null){
+            log.error("Auther with email {} already exists", email);
             throw new DaplicateRecordException("Auther with email " + email + " already exists");
         }
+        log.info("author email is {}, author name is {}", auther.getEmail(), auther.getName());
         return autherRepo.save(auther);
     }
 

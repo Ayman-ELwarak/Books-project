@@ -1,17 +1,23 @@
 package com.global.hr.booksproject.controller;
 
+import com.global.hr.booksproject.dto.BookDto;
 import com.global.hr.booksproject.entity.Book;
+import com.global.hr.booksproject.mapper.BookMapper;
 import com.global.hr.booksproject.service.BookService;
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/book")
+@RequiredArgsConstructor
 public class BookController {
-    @Autowired
-    private BookService bookService;
+    private final BookService bookService;
+
+    private final BookMapper bookMapper;
 
     @GetMapping
     public ResponseEntity<?> findAll(){
@@ -20,7 +26,9 @@ public class BookController {
 
     @GetMapping("/{id}")
     public ResponseEntity<?> findById(@PathVariable Long id){
-        return ResponseEntity.ok(bookService.findById(id));
+        Book book = bookService.findById(id);
+        BookDto bookDto = bookMapper.map(book);
+        return ResponseEntity.ok(bookDto);
     }
 
     @PostMapping
